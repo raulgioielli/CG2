@@ -65,9 +65,14 @@ public class Teste
 	  
 	  videoWriter.release();
 	  videoCapture.release();
-	    
 	  
-	  //Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\img3.png", imagemCopia);
+//	  Mat imagemInicial = Imgcodecs.imread("C:\\Users\\raulg\\Desktop\\img2.png");
+//	  Mat mascara = Imgcodecs.imread("C:\\Users\\raulg\\Desktop\\img1.png");
+//	  
+//	  desenharFrame(imagemInicial, mascara, imagemInicial);
+//	    
+//	  
+//	  Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\CG\\ResultadoFinal.png", imagemInicial);
    }
    
    public static void desenharFrame(Mat imagemProcessar, Mat mascara, Mat imagemCopia){
@@ -79,15 +84,19 @@ public class Teste
 		  List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 		  
 		  Core.absdiff(imagemProcessar, mascara, imagemFinal);
+		  Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\CG\\DiferencaMascaraImagem.png", imagemFinal);
 		  Core.absdiff(mascara, mascara, imagemTime1);
 		  Core.absdiff(mascara, mascara, imagemTime2);
 
 		  corOriginal(imagemFinal, imagemProcessar, 45);
+		  Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\CG\\ImagemComMascaraEThreshold.png", imagemFinal);
 		  Imgproc.erode(imagemFinal, imagemFinal, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,3)));
 		  Imgproc.dilate(imagemFinal, imagemFinal, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,3)));
+		  Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\CG\\ImagemComMascaraEThresholdAposAbertura.png", imagemFinal);
 		  
 		  Imgproc.dilate(imagemFinal, imagemFinal, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,4)));
 		  Imgproc.erode(imagemFinal, imagemFinal, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,4)));
+		  Imgcodecs.imwrite("C:\\Users\\raulg\\Desktop\\CG\\ImagemComMascaraEThresholdAposAberturaEFechamento.png", imagemFinal);
 		  
 		  Imgproc.cvtColor(imagemFinal, imagemFinalBW, 7);
 		  
@@ -140,6 +149,7 @@ public class Teste
 		    	Imgproc.circle(imagemCopia, new Point(jogadores_2.get(i).centerX,jogadores_2.get(i).centerY), 4, cor, -1);
 		    	jogadores_2.get(i).desenharPercurso(imagemCopia);
 		    }
+		    
 		    
 		    jogadores_ = jogadores_2;
 		    
@@ -223,8 +233,7 @@ public class Teste
 			   centers[i][1] = media2 / div;
 			   centers[i][2] = media3 / div;
 		   }
-	   }
-	   
+	   }  
    }
    
    public static void corOriginal(Mat m1, Mat m2, int threshold){

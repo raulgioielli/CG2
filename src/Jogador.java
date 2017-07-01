@@ -52,7 +52,7 @@ public class Jogador {
 					bestMatchDistance = dist;
 				}
 			}
-			if(bestMatchDistance < 4){
+			if(bestMatchDistance < 20){
 				frameAtual.get(i).label = frameAnterior.get(bestMatch).label;
 				frameAtual.get(i).percurso = frameAnterior.get(bestMatch).percurso.clone();
 				frameAtual.get(i).pos = frameAnterior.get(bestMatch).pos;
